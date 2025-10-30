@@ -1,0 +1,55 @@
+button {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: none;
+    background: #2563eb;
+    color: white;
+    cursor: pointer;
+    flex: 1;
+    min-width: 120px;
+}
+
+.btn:active {
+    transform: scale(0.96);
+    transition: all 0.3s ease;
+}
+
+.encrypt {
+    background-color: #238636;
+}
+
+.encrypt:hover {
+    background-color: #2ea043;
+}
+
+.decrypt {
+    background-color: #8957e5;
+}
+
+.decrypt:hover {
+    background-color: #986fec;
+}
+
+.paste {
+    background-color: #ff894f;
+}
+
+.paste:hover {
+    background-color: #ffa579;
+}
+
+.clear {
+    background-color: #da3633;
+}
+
+.clear:hover {
+    background-color: #f85149;
+}
+
+.copyOut {
+    background-color: #016b61;
+}
+
+.copyOut:hover {
+    background-color: #00897c;
+}
