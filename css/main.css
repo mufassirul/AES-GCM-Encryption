@@ -1,0 +1,142 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Inter, system-ui, Segoe UI, Roboto, Arial;
+    background: #071022;
+    color: #e6eef8;
+    min-height: 100vh;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.card {
+    background: #0b1220;
+    padding: 24px;
+    border-radius: 12px;
+    max-width: 980px;
+    width: 90%;
+    box-shadow: 0 8px 10px rgba(2, 6, 23, 0.6);
+    margin: 20px auto;
+    flex: 1;
+}
+
+textarea,
+input,
+select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    border-radius: 8px;
+    border: 1px solid #23314a;
+    background: #071021;
+    color: #e6eef8;
+    box-sizing: border-box;
+}
+
+.row {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.muted {
+    color: #9fb0d1;
+    font-size: 13px;
+}
+
+label {
+    display: block;
+    margin-top: 12px;
+}
+
+code {
+    background: #071827;
+    padding: 2px 6px;
+    border-radius: 6px;
+}
+
+h2,
+h3 {
+    margin-top: 0;
+}
+
+#toast-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+}
+
+.toast {
+    min-width: 220px;
+    margin-top: 8px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 500;
+    animation: fadein 0.25s, fadeout 0.25s 2.5s;
+}
+
+.success {
+    background: #16a34a;
+}
+
+.error {
+    background: #dc2626;
+}
+
+.warning {
+    background: #f59e0b;
+}
+
+.info {
+    background: #3b82f6;
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeout {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+}
+
+svg.icon {
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+    margin: 0 3px 2px 0;
+}
+
+.uiIcon {
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+    margin: 0 3px 5px 0;
+}
+
+footer {
+    text-align: center;
+    padding: 12px 0 20px;
+    color: #9fb0d1;
+    font-size: 13px;
+}
