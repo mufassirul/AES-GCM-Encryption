@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AES-GCM Encryptor — Text & File (v8)</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/button.css">
+</head>
+<body>
+  <div class="wrapper">
+    <div class="card">
+        <h2>AES-GCM Encryptor — Text & File (v8)</h2>
+        <p class="muted">
+            Now encrypts file metadata (original filename & extension) as part of the AES payload — nothing about the file is readable without the passphrase.
+        </p>
+
+        <label>
+            <svg class="uiIcon" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
+                <path d="M120-160v-112q0-34 17.5-62.5T184-378q62-31 126-46.5T440-440q20 0 40 1.5t40 4.5q-4 58 21 109.5t73 84.5v80H120ZM760-40l-60-60v-186q-44-13-72-49.5T600-420q0-58 41-99t99-41q58 0 99 41t41 99q0 45-25.5 80T790-290l50 50-60 60 60 60-80 80ZM440-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47Zm300 80q17 0 28.5-11.5T780-440q0-17-11.5-28.5T740-480q-17 0-28.5 11.5T700-440q0 17 11.5 28.5T740-400Z" />
+            </svg>
+            Passphrase
+        </label>
+        <input id="pass" type="text" placeholder="Enter passphrase">
+
+        <div class="row">
+            <label class="half">
+                <svg class="uiIcon" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
+                    <path d="m360-120-57-56 64-64h-7q-117 0-198.5-81.5T80-520q0-117 81.5-198.5T360-800h240q117 0 198.5 81.5T880-520q0 117-81.5 198.5T600-240v-80q83 0 141.5-58.5T800-520q0-83-58.5-141.5T600-720H360q-83 0-141.5 58.5T160-520q0 83 58.5 142.5T360-312h16l-72-72 56-56 160 160-160 160Z" />
+                </svg>
+                PBKDF2 Iterations
+            </label>
+            <input id="iters" type="number" class="half" value="150000" min="1000" step="1000">
+        </div>
+
+        <label>
+            <svg class="uiIcon" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
+                <path d="M600-160v-80H440v-200h-80v80H80v-240h280v80h80v-200h160v-80h280v240H600v-80h-80v320h80v-80h280v240H600Zm80-80h120v-80H680v80ZM160-440h120v-80H160v80Zm520-200h120v-80H680v80Zm0 400v-80 80ZM280-440v-80 80Zm400-200v-80 80Z" />
+            </svg>
+            Output Encoding (text)
+        </label>
+        <select id="encoding">
+            <option value="base64">Base64</option>
+            <option value="hex">Hex</option>
+            <option value="bytes">Base-256</option>
+        </select>
+
+        <hr style="margin:16px 0;border:0;border-top:1px solid #23314a">
+
+        <h3>
+            <svg class="uiIcon" viewBox="0 -960 960 960" fill="currentColor">
+                <path d="M444-336v-216H336v-72h288v72H516v216h-72ZM48-48v-240h84v-384H48v-240h240v84h384v-84h240v240h-84v384h84v240H672v-84H288v84H48Zm240-156h384v-84h84v-384h-84v-84H288v84h-84v384h84v84ZM120-744h96v-96h-96v96Zm624 0h96v-96h-96v96Zm0 624h96v-96h-96v96Zm-624 0h96v-96h-96v96Zm96-624Zm528 0Zm0 528Zm-528 0Z" />
+            </svg>
+            Text Encrypt / Decrypt
+        </h3>
+
+        <label>
+            <svg class="icon" viewBox="0 -960 960 960" fill="currentColor">
+                <path d="M240-384h336v-72H240v72Zm0-132h480v-72H240v72Zm0-132h480v-72H240v72ZM96-96v-696q0-29.7 21.15-50.85Q138.3-864 168-864h624q29.7 0 50.85 21.15Q864-821.7 864-792v480q0 29.7-21.15 50.85Q821.7-240 792-240H240L96-96Zm114-216h582v-480H168v522l42-42Zm-42 0v-480 480Z" />
+            </svg>
+            Plaintext / Input
+        </label>
+        <textarea id="plain" rows="6" placeholder="Type plaintext to encrypt or paste encoded input to decrypt..."></textarea>
+
+        <div class="row">
+            <button class="btn encrypt" id="encryptText"><svg class="icon" viewBox="0 -960 960 960" fill="currentColor"><path d="M240-80q-33 0-56.5-23.5T160-160v-400q0-33 23.5-56.5T240-640h40v-80q0-83 58.5-141.5T480-920q83 0 141.5 58.5T680-720v80h40q33 0 56.5 23.5T800-560v400q0 33-23.5 56.5T720-80H240Zm0-80h480v-400H240v400Zm240-120q33 0 56.5-23.5T560-360q0-33-23.5-56.5T480-440q-33 0-56.5 23.5T400-360q0 33 23.5 56.5T480-280ZM360-640h240v-80q0-50-35-85t-85-35q-50 0-85 35t-35 85v80ZM240-160v-400 400Z"/></svg>Encrypt</button>
+            <button class="btn decrypt" id="decryptText"><svg class="icon" viewBox="0 -960 960 960" fill="currentColor"><path d="M240-640h360v-80q0-50-35-85t-85-35q-50 0-85 35t-35 85h-80q0-83 58.5-141.5T480-920q83 0 141.5 58.5T680-720v80h40q33 0 56.5 23.5T800-560v400q0 33-23.5 56.5T720-80H240q-33 0-56.5-23.5T160-160v-400q0-33 23.5-56.5T240-640Zm0 480h480v-400H240v400Zm240-120q33 0 56.5-23.5T560-360q0-33-23.5-56.5T480-440q-33 0-56.5 23.5T400-360q0 33 23.5 56.5T480-280ZM240-160v-400 400Z"/></svg>Decrypt</button>
+            <button class="btn copyOut" id="copyOut"><svg class="icon" viewBox="0 -960 960 960" fill="currentColor"><path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z"/></svg>Copy Output</button>
+            <button class="btn paste" id="pasteInput"><svg class="icon" viewBox="0 -960 960 960" fill="currentColor"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h167q11-35 43-57.5t70-22.5q40 0 71.5 22.5T594-840h166q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560h-80v120H280v-120h-80v560Zm280-560q17 0 28.5-11.5T520-800q0-17-11.5-28.5T480-840q-17 0-28.5 11.5T440-800q0 17 11.5 28.5T480-760Z"/></svg>Paste</button>
+            <button class="btn clear" id="clearInput"><svg viewBox="0 -960 960 960" width="20" height="20" fill="currentColor" class="icon"> <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>Clear Input</button>
+            <button class="btn download" id="downloadTextEnc"><svg class="icon" viewBox="0 -960 960 960" fill="currentColor"><path d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z"/></svg>Download (.enc)</button>
+            <button class="btn upload" id="uploadTextEnc"><svg class="icon" viewBox="0 -960 960 960" fill="currentColor"><path d="M440-320v-326L336-542l-56-58 200-200 200 200-56 58-104-104v326h-80ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z"/></svg>Upload (.enc)</button>
+            <button class="btn clear" id="clearText"><svg class="icon" viewBox="0 -960 960 960" fill="currentColor"><path d="m376-300 104-104 104 104 56-56-104-104 104-104-56-56-104 104-104-104-56 56 104 104-104 104 56 56Zm-96 180q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520Zm-400 0v520-520Z"/></svg><b>Clear All</b></button>
+        </div>
+
+        <label>
+            <svg class="icon" viewBox="0 -960 960 960" fill="currentColor">
+                <path d="M168-192q-29.7 0-50.85-21.16Q96-234.32 96-264.04v-432.24Q96-726 117.15-747T168-768h624q29.7 0 50.85 21.16Q864-725.68 864-695.96v432.24Q864-234 842.85-213T792-192H168Zm0-72h624v-360H168v360Zm132-48-51-51 81-81-81-81 51-51 132 132-132 132Zm180 0v-72h240v72H480Z" />
+            </svg>
+            Output
+        </label>
+        <textarea readonly id="out" rows="6" placeholder="Result appears here..."></textarea>
+
+        <hr style="margin:16px 0;border:0;border-top:1px solid #23314a">
+
+        <h3>
+            <svg class="uiIcon" viewBox="0 -960 960 960" fill="currentColor">
+                <path d="M168-192q-29.7 0-50.85-21.5Q96-235 96-264v-384q0-29.7 21.15-50.85Q138.3-720 168-720h216l48-48h360q29.7 0 50.85 21.15Q864-725.7 864-696v432q0 29-21.15 50.5T792-192H168Zm54-264h186v-186L222-456Zm-54-48 144-144H168v144Zm0 120v120h624v-432H480v240q0 29-21.15 50.5T408-384H168Zm240-144Z" />
+            </svg>
+            File Encrypt / Decrypt (metadata encrypted)
+        </h3>
+
+        <input type="file" id="fileInput">
+
+        <div class="row">
+            <button class="btn encrypt" id="encryptFile"><svg class="icon" viewBox="0 -960 960 960" fill="currentColor"><path d="M240-80q-33 0-56.5-23.5T160-160v-400q0-33 23.5-56.5T240-640h40v-80q0-83 58.5-141.5T480-920q83 0 141.5 58.5T680-720v80h40q33 0 56.5 23.5T800-560v400q0 33-23.5 56.5T720-80H240Zm0-80h480v-400H240v400Zm240-120q33 0 56.5-23.5T560-360q0-33-23.5-56.5T480-440q-33 0-56.5 23.5T400-360q0 33 23.5 56.5T480-280ZM360-640h240v-80q0-50-35-85t-85-35q-50 0-85 35t-35 85v80ZM240-160v-400 400Z"/></svg>Encrypt File</button>
+            <button class="btn decrypt" id="decryptFile"><svg class="icon" viewBox="0 -960 960 960" fill="currentColor"><path d="M240-640h360v-80q0-50-35-85t-85-35q-50 0-85 35t-35 85h-80q0-83 58.5-141.5T480-920q83 0 141.5 58.5T680-720v80h40q33 0 56.5 23.5T800-560v400q0 33-23.5 56.5T720-80H240q-33 0-56.5-23.5T160-160v-400q0-33 23.5-56.5T240-640Zm0 480h480v-400H240v400Zm240-120q33 0 56.5-23.5T560-360q0-33-23.5-56.5T480-440q-33 0-56.5 23.5T400-360q0 33 23.5 56.5T480-280ZM240-160v-400 400Z"/></svg>Decrypt File</button>
+            <button class="btn upload" id="uploadFileEnc"><svg class="icon" viewBox="0 -960 960 960" fill="currentColor"><path d="M440-200h80v-167l64 64 56-57-160-160-160 160 57 56 63-63v167ZM240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h320l240 240v480q0 33-23.5 56.5T720-80H240Zm280-520v-200H240v640h480v-440H520ZM240-800v200-200 640-640Z"/></svg>Upload File(.enc)</button>
+        </div>
+
+        <p class="muted">
+            When encrypting you'll be asked for a base name (no extension). Tool saves <code>basename.enc</code>. The original full filename (including extension) is stored <strong>encrypted</strong> in the AES payload and only recovered after successful decryption. On decrypt the original extension is suggested and appended automatically.
+        </p>
+    </div>
+
+    <div id="toast-container"></div>
+    <script src="js/main.js"></script>
+    
+    <footer style="margin-top:40px;text-align:center;padding:16px 0;font-size:14px;color:#9fb0d1;border-top:1px solid #23314a;">
+        <p>🔒 AES-GCM Encryptor v8 — Built for secure offline encryption</p>
+        <p>Developed by <b>Mufassirul</b> | © <span id="year"></span></p>
+    </footer>
+  </div>
+<script>
+    // Auto-update year
+    document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
