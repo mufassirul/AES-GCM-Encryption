@@ -9,7 +9,7 @@ Uses random IVs, authentication tags, and password-based key derivation (PBKDF2 
 - Auth tag automatically included
 - Text and file encryption/decryption
 - Password-based key derivation using PBKDF2 (SHA-256)
-- Adjustable iteration count (default 150,000)
+- Adjustable iteration count (default 200,000)
 - Works fully offline — no data leaves your device
 - Supports `.aes` (text) and `.enc` (file) formats for visual clarity
 
